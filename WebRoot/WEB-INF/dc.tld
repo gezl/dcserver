@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee web-jsptaglibrary_2_0.xsd"
+    version="2.0">
+    <description>A tag library exercising SimpleTag handlers.</description>
+    <tlib-version>1.0</tlib-version>
+ 
+	  <short-name>dctag</short-name>
+	  <uri>http://www.dc.com/tags</uri>
+	  <description>
+	    dctag
+	  </description>
+ 
+	<tag>
+       <name>acl</name>
+       <tag-class>com.dc.platform.ss.permission.DCAclTag</tag-class>
+       <body-content>jsp</body-content>
+       <attribute>
+             <name>control</name>
+             <required>true</required>
+             <rtexprvalue>true</rtexprvalue>
+       </attribute>
+       <attribute>
+             <name>permission</name>
+             <required>true</required>
+             <rtexprvalue>true</rtexprvalue>
+       </attribute>
+   </tag>
+</taglib>

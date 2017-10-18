@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:jsp="http://java.sun.com/xml/ns/javaee/jsp" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+  <display-name></display-name>
+  <welcome-file-list>
+    <welcome-file>login.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <!-- 日志配置文件 -->
+  <context-param>
+	<param-name>log4jConfigLocation</param-name>
+	<param-value>classpath:log4j.properties</param-value>
+	</context-param>
+	<listener>
+	<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+</listener>
+  <!-- 日志配置文件 -->
+  
+  <!-- Spring配置文件 -->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath*:/applicationContext-*.xml</param-value>
+  </context-param>
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <!-- Spring配置文件 -->
+  
+  <filter>
+    <filter-name>encoding</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>encoding</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <servlet>
+    <servlet-name>initClientServlet</servlet-name>
+    <servlet-class>com.dc.server.socket.initClientServlet</servlet-class>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+  <servlet>
+    <servlet-name>Base4DBServlet</servlet-name>
+    <servlet-class>com.dc.platform.Base4DBServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet>
+    <servlet-name>UploadServlet</servlet-name>
+    <servlet-class>com.dc.platform.action.UploadServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>ACLServlet</servlet-name>
+    <servlet-class>com.dc.platform.action.ACLServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Base4DBServlet</servlet-name>
+    <url-pattern>/sdb</url-pattern>
+    <url-pattern>/lsdb</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>initClientServlet</servlet-name>
+    <url-pattern>/initC</url-pattern>
+  </servlet-mapping>
+  <filter>
+    <filter-name>LoginFilter</filter-name>
+    <filter-class>com.dc.platform.LoginFilter</filter-class>
+    <init-param>
+      <description>可以通过登录访问控制的请求（多个请求地址用,间隔）</description>
+      <param-name>accesspaths</param-name>
+      <param-value>/login.jsp</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>LoginFilter</filter-name>
+    <url-pattern>/sdb</url-pattern>
+  </filter-mapping>
+  <filter>
+    <filter-name>ThreadLocalFilter</filter-name>
+    <filter-class>com.dc.platform.ThreadLocalFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>ThreadLocalFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  
+  <servlet>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>com.dc.platform.LoginServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>DownLoadServlet</servlet-name>
+    <servlet-class>com.dc.platform.DownLoadServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/loginServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DownLoadServlet</servlet-name>
+    <url-pattern>/DownLoadServlet</url-pattern>
+  </servlet-mapping>
+  
+  <!-- JSP tld-->
+  <jsp-config>
+    <taglib>
+      <taglib-uri>http://www.dc.com/tags</taglib-uri>
+      <taglib-location>/WEB-INF/dc.tld</taglib-location>
+    </taglib>
+  </jsp-config>
+   <!-- JSP tld-->
+   
+    <!-- 异常页面-->
+  <error-page>
+    <exception-type>java.lang.Exception</exception-type>
+    <location>/error.jsp</location>
+  </error-page>
+   <!-- 异常页面-->
+   
+    <!-- SocketListener-->
+  <listener>
+    <description>SocketListener</description>
+    <listener-class>com.dc.server.socket.SocketListener</listener-class>
+  </listener>
+   <!-- SocketListener-->
+</web-app>
