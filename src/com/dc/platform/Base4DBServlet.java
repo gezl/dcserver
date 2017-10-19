@@ -21,7 +21,7 @@ import com.dc.platform.dbinfo.DatabaseManager;
  * </p>
  * @author sslin
  * @date 2013-4-26 下午2:02:00
- * @description : 公用servlet  <br>
+ * @description : 公用servlet  <br>111
  * 		/s?opr=Base4DBService&ac=add
  */
 public class Base4DBServlet extends HttpServlet {
